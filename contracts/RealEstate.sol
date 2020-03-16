@@ -24,7 +24,7 @@ contract RealEstate {
 	// ------------------------------ Variables ------------------------------
 	IRBAC roleContract;		// reference to contract RoleBasedAcl
 	// number of certificate (token id)
-	uint256 certificateCount;
+	uint256 public certificateCount;
 	// State of certificate
 	enum State { PENDDING, ACTIVATED, SELLING } //sate of token PENDDING: 0, ACTIVATED: 1, SELLING: 2
 
@@ -81,10 +81,10 @@ contract RealEstate {
 
 	/// @dev This emits when ownership of any NFTs changes by any mechanism
 	event Transfer(
-		address[] _oldOwner,
-		address[] _newOwner,
-		uint256 _tokenId,
-		address indexed _notary
+		address[] oldOwner,
+		address[] newOwner,
+		uint256 idCertificate,
+		address indexed notary
 	);
 
 	/// @dev Emits when the owner activate certificate (PENDDING => ACTIVATED)
@@ -234,7 +234,7 @@ contract RealEstate {
 		require(roleContract.hasRole(msg.sender,1), "RealEstate: Require notary");
 		require(
 			!_checkExitInArray(_newOwners, msg.sender),
-			"RealEstate: Can't transfer to yourself"
+			"RealEstate: Can't transfer to current owner"
 		);
 		// require(_newOwners.length > 0, "RealEstate: Require one owner at least");
 		address[] memory _currentOwners = getOwnersOf(_id);

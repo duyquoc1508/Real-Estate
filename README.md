@@ -29,6 +29,10 @@ Properties:
 
 Deploy smart contracts using truffle framework
 
+- Test smart contracts
+  ```
+  truffle test
+  ```
 - Deploy smart contracts to your local Ganache instance
   ```
   truffle migrate --reset
